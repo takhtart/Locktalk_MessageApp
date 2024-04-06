@@ -42,11 +42,11 @@ public class KdcEntryActivity extends AppCompatActivity {
                         if (isVerified) {
                             // Code verified successfully, navigate to Home
                             // set the KDC regeneration for every ONE HOUR or on success full login
-                            PeriodicWorkRequest.Builder builder = new PeriodicWorkRequest.Builder(KdcCodeWorker.class, 1, TimeUnit.HOURS)
-                                    .setInitialDelay(0, TimeUnit.MILLISECONDS); // Start immediately
-
-                            PeriodicWorkRequest workRequest = builder.build();
-                            WorkManager.getInstance().enqueue(workRequest);
+//                            PeriodicWorkRequest.Builder builder = new PeriodicWorkRequest.Builder(KdcCodeWorker.class, 1, TimeUnit.HOURS)
+//                                    .setInitialDelay(0, TimeUnit.MILLISECONDS); // Start immediately
+//
+//                            PeriodicWorkRequest workRequest = builder.build();
+//                            WorkManager.getInstance().enqueue(workRequest);
 
                             Intent intent = new Intent(KdcEntryActivity.this, Home.class);
                             startActivity(intent);

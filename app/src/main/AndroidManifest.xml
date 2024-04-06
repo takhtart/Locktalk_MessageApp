@@ -32,10 +32,6 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".controllers.KdcEntryActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".controllers.Home"
             android:exported="false"
             android:screenOrientation="portrait"/>

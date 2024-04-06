@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -18,6 +21,7 @@ import com.example.locktalk_messageapp.models.MessageHandler;
 import com.example.locktalk_messageapp.models.DirHandler;
 import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
 import com.example.locktalk_messageapp.qolfunctions.GeneralFunctions;
+import com.example.locktalk_messageapp.qolfunctions.KdcCodeWorker;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +33,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -61,6 +66,7 @@ public class Chat extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_chat);
 
         // Get other user's info
@@ -73,7 +79,7 @@ public class Chat extends AppCompatActivity {
         emp2name = findViewById(R.id.emp2NameChat);
         backbtn = findViewById(R.id.backbtnchat);
         chatRoomID = FirebaseFunctions.getChatRoomID(FirebaseFunctions.currentUID(),emp2.getUserID());
-
+        verifyKdcKeyAndSetUpChat();
         // Back on Press
         backbtn.setOnClickListener(v -> {
                getOnBackPressedDispatcher().onBackPressed();
@@ -83,7 +89,7 @@ public class Chat extends AppCompatActivity {
         emp2name.setText(emp2.getFirst_Name()+" "+emp2.getLast_Name());
 
         // Creates A Chat Room
-        createChatRoom();
+//        createChatRoom();
 
         // Button That Handles Sending a Message
         sendbtn.setOnClickListener(v -> {
@@ -96,7 +102,7 @@ public class Chat extends AppCompatActivity {
         });
 
         // Displays Chat
-        setupChatViews();
+//        setupChatViews();
 
     }
 
@@ -216,6 +222,55 @@ public class Chat extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void verifyKdcKeyAndSetUpChat() {
+        // Get the current user's KDC key
+        FirebaseFunctions.currentUser().get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DirHandler emp1 = task.getResult().toObject(DirHandler.class);
+                // Now get the other user's KDC key
+                FirebaseFunctions.allEmp().document(emp2.getUserID()).get().addOnCompleteListener(task2 -> {
+                    if (task2.isSuccessful()) {
+                        DirHandler emp2WithKey = task2.getResult().toObject(DirHandler.class);
+                        // Compare both KDC keys
+                        assert emp1 != null;
+                        assert emp2WithKey != null;
+                        if (emp1.getKdcKey().equals(emp2WithKey.getKdcKey())) {
+                            // Keys match, set up the chat views
+                            setupChatViews();
+                            createChatRoom();
+//                            PeriodicWorkRequest kdcCodeWorkRequest = new PeriodicWorkRequest.Builder(KdcCodeWorker.class, 1, TimeUnit.HOURS)
+//                                    .build();
+//                            WorkManager.getInstance(this).enqueue(kdcCodeWorkRequest);
+                            PeriodicWorkRequest.Builder builder = new PeriodicWorkRequest.Builder(KdcCodeWorker.class, 1, TimeUnit.HOURS)
+                                    .setInitialDelay(1, TimeUnit.MINUTES); // Start immediately
+
+                            PeriodicWorkRequest workRequest = builder.build();
+                            WorkManager.getInstance(this).enqueue(workRequest);
+                        } else {
+
+                            redirectToLoginOrHome();
+                        }
+                    }
+                    else{
+                        Log.e("Chat", "Failed to get other employee's KDC key.", task2.getException());
+                    }
+
+                });
+            } else {
+                Log.e("Chat", "Failed to get current user's KDC key.");
+                // Handle failure to get KDC key
+            }
+        });
+    }
+
+    private void redirectToLoginOrHome() {
+        // Implement your logic to redirect to the Login or Home page
+        // For instance:
+        Intent intent = new Intent(Chat.this, Login.class);
+        startActivity(intent);
+        finish();
     }
 
 

@@ -63,12 +63,10 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-//                            Toast.makeText(Login.this, "Succesfully Logged In",Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(Login.this, Home.class);
-//                            startActivity(intent);
-                            Toast.makeText(Login.this, "Login Successful. Please enter KDC code.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login.this, KdcEntryActivity.class);
+                            Toast.makeText(Login.this, "Succesfully Logged In",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Login.this, Home.class);
                             startActivity(intent);
+
                         }
                         else{
                             Toast.makeText(Login.this, "Login Unsuccessful",Toast.LENGTH_SHORT).show();
