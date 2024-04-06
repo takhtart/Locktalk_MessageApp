@@ -1,20 +1,27 @@
 package com.example.locktalk_messageapp.home_fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
 import com.example.locktalk_messageapp.R;
 import com.example.locktalk_messageapp.adapters.MessagesAdapter;
 import com.example.locktalk_messageapp.models.ChatRoomHandler;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.Query;
 
 // Messages Page Fragment of the Main Home Page (Bottom Nav Bar)
@@ -22,6 +29,8 @@ import com.google.firebase.firestore.Query;
 public class MessagesFragment extends Fragment {
 
     // Initialize Variables
+
+    ImageButton newchatbtn;
     RecyclerView chatsList;
 
     MessagesAdapter messagesAdapter;
@@ -39,6 +48,23 @@ public class MessagesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_messages, container, false);
         // Relate Variables to layout file
         chatsList = view.findViewById(R.id.chat_list);
+        newchatbtn = view.findViewById(R.id.new_chat);
+
+        newchatbtn.setOnClickListener((v ->{
+            DirectoryFragment directoryFragment = new DirectoryFragment();
+
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.home_frame, directoryFragment);
+            fragmentTransaction.commit();
+            BottomNavigationView navigationView = (BottomNavigationView) getActivity().findViewById(R.id.bottomnavbar);
+            navigationView.setSelectedItemId(R.id.navigation_directory);
+
+
+
+
+
+        }));
 
         // Call Setup
         setupChatListView();
