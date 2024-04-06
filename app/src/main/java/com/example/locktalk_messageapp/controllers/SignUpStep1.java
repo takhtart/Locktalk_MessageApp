@@ -77,7 +77,6 @@ public class SignUpStep1 extends AppCompatActivity {
 
     }
     void PasswordReset(String email_string){
-        Log.i("email:", email_string);
         mAuth.sendPasswordResetEmail(email_string)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
