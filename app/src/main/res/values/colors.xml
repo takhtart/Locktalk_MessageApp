@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Blue">#5A6393</color>
+    <color name="Dark_Grey">#2B2727</color>
+    <color name="Grey">#3A3939</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="sent_mes">#3A3939</color>
+    <color name="rec_mes">#4F63D1</color>
+</resources>

@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Locktalk_MessageApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!-- Primary -->
+        <item name="colorPrimary">@color/Dark_Grey</item>
+        <item name="colorPrimaryVariant">@color/Dark_Grey</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary -->
+        <item name="colorSecondary">@color/Grey</item>
+        <item name="colorSecondaryVariant">@color/Grey</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- StatusBar -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/Dark_Grey</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="iconTint">@color/white</item>
+
+    </style>
+
+    <style name="Theme.Locktalk_MessageApp" parent="Base.Theme.Locktalk_MessageApp" />
+</resources>
