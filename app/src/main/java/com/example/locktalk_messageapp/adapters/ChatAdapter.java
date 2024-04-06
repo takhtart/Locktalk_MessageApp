@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,11 +41,13 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<MessageHandler,ChatAda
             holder.left_bubble.setVisibility(View.GONE);
             holder.right_bubble.setVisibility(View.VISIBLE);
             holder.right_bubble_text.setText(model.getMessage());
+            holder.right_bubble_time.setText(FirebaseFunctions.TimestampToTime(model.getTimestamp()));
         }
         else{
             holder.left_bubble.setVisibility(View.VISIBLE);
             holder.right_bubble.setVisibility(View.GONE);
             holder.left_bubble_text.setText(model.getMessage());
+            holder.left_bubble_time.setText(FirebaseFunctions.TimestampToTime(model.getTimestamp()));
         }
 
     }
@@ -58,7 +61,7 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<MessageHandler,ChatAda
 
     class ShowMessages extends RecyclerView.ViewHolder{
         LinearLayout left_bubble,right_bubble;
-        TextView left_bubble_text, right_bubble_text;
+        TextView left_bubble_text, right_bubble_text, left_bubble_time, right_bubble_time;
 
         public ShowMessages(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +70,8 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<MessageHandler,ChatAda
 
             left_bubble_text = itemView.findViewById(R.id.left_bubble_text);
             right_bubble_text = itemView.findViewById(R.id.right_bubble_text);
+            left_bubble_time = itemView.findViewById(R.id.left_bubble_time);
+            right_bubble_time = itemView.findViewById(R.id.right_bubble_time);
 
 
         }

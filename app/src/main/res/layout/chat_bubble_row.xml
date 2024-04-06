@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="10dp">
 
     <LinearLayout
@@ -11,8 +12,7 @@
         android:padding="10dp"
         android:background="@drawable/textinputbubble"
         android:backgroundTint="@color/sent_mes"
-        android:layout_marginEnd="70dp"
-        >
+        android:layout_marginEnd="70dp">
 
         <TextView
             android:id="@+id/left_bubble_text"
@@ -25,7 +25,10 @@
 
             />
 
+
+
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/right_bubble"
@@ -35,7 +38,7 @@
         android:background="@drawable/textinputbubble"
         android:backgroundTint="@color/rec_mes"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="10dp"
        >
 
         <TextView
@@ -50,5 +53,63 @@
             />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/left_bubble"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="70dp">
+
+        <TextView
+            android:id="@+id/left_bubble_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            tools:text="12:00PM"
+
+
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time_r"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/right_bubble"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="70dp">
+
+        <TextView
+            android:id="@+id/right_bubble_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            tools:text="12:00PM"
+
+
+            />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
 
 </RelativeLayout>
