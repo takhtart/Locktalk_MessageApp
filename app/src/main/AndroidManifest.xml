@@ -20,28 +20,37 @@
                     android:resource="@drawable/lock_logo"/>
         <activity
             android:name=".controllers.Chat"
-            android:exported="false" />
+            android:exported="false"
+
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controllers.SearchDir"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controllers.Login"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controllers.Home"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controllers.SignUpStep3"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controllers.SignUpStep2"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controllers.SignUpStep1"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".controllers.Splash"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
