@@ -14,7 +14,7 @@ public class GeneralFunctions {
         emp.setEmail(intent.getStringExtra("Email"));
         emp.setUserID(intent.getStringExtra("userID"));
         emp.setFCMToken(intent.getStringExtra("FCMToken"));
-
+        emp.setOrg(intent.getStringExtra("Org"));
         return emp;
     }
 
@@ -27,5 +27,6 @@ public class GeneralFunctions {
         intent.putExtra("Email",model.getEmail());
         intent.putExtra("userID", model.getUserID());
         intent.putExtra("FCMToken", model.getFCMToken());
+        intent.putExtra("Org", model.getOrg());
     }
 }

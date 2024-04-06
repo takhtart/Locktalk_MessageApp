@@ -2,19 +2,20 @@ package com.example.locktalk_messageapp.models;
 
 // Directory Model, Containing a Contstructor, Getters/Setters
 public class DirHandler {
-    private String First_Name,Last_Name,Email,UserID,FCMToken;
+    private String First_Name,Last_Name,Email,UserID,FCMToken,Org;
 
 
     public DirHandler(){
 
     }
 
-    public DirHandler(String first_Name, String last_Name, String email, String userID, String FCMToken) {
+    public DirHandler(String first_Name, String last_Name, String email, String userID, String FCMToken, String org) {
         First_Name = first_Name;
         Last_Name = last_Name;
         Email = email;
         UserID = userID;
         this.FCMToken = FCMToken;
+        Org = org;
     }
 
     public String getFirst_Name() {
@@ -55,5 +56,13 @@ public class DirHandler {
 
     public void setFCMToken(String FCMToken) {
         this.FCMToken = FCMToken;
+    }
+
+    public String getOrg() {
+        return Org;
+    }
+
+    public void setOrg(String Org) {
+        this.Org = Org;
     }
 }

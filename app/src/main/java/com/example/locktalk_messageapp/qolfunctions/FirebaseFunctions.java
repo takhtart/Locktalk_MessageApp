@@ -23,7 +23,6 @@ public class FirebaseFunctions {
     // Gets User Info Using the current ID of the User matching it with the database (Firebase Auth ID and Firebase Cloud DB document ID MUST BE THE SAME)
     public static DocumentReference currentUser(){
         return FirebaseFirestore.getInstance().collection("employees").document(currentUID());
-
     }
 
     // Pulls the list of all the users in the employees database
@@ -72,5 +71,9 @@ public class FirebaseFunctions {
 
         return new SimpleDateFormat("h:mm aa").format(timestamp.toDate());
 
+    }
+
+    public static DocumentReference getLocation(String orgID){
+        return FirebaseFirestore.getInstance().collection("locations").document(orgID);
     }
 }
