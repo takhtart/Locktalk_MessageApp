@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home_fragments.MessagesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -15,5 +16,23 @@
         android:layout_marginBottom="10dp">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/new_chat"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/add_icon"
+            android:background="@drawable/circle_cutout"
+            android:backgroundTint="@color/Grey"
+
+            android:layout_margin="30dp"
+            app:tint="@color/white"/>
+    </RelativeLayout>
 
 </RelativeLayout>
