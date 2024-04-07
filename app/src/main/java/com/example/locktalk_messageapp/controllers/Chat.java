@@ -9,6 +9,7 @@ import androidx.work.WorkManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -33,8 +34,18 @@ import com.google.firebase.firestore.Query;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -168,7 +179,6 @@ public class Chat extends AppCompatActivity {
 
             }
         });
-
     }
 
     //Creates and sends JSON Object Containing Details Of The Notification
@@ -275,6 +285,4 @@ public class Chat extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
 }
