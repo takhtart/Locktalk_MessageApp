@@ -9,6 +9,7 @@ import androidx.work.WorkManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -33,8 +34,18 @@ import com.google.firebase.firestore.Query;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -276,5 +287,21 @@ public class Chat extends AppCompatActivity {
         finish();
     }
 
+    // Encrypts message content using Blowfish algo and chatID as shared key
+    public static String encrypt(String message, String chatID) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        SecretKeySpec secretKeySpec = new SecretKeySpec(chatID.getBytes(), "Blowfish");
+        Cipher cipher = Cipher.getInstance("Blowfish/CBC/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec("abcdefgh".getBytes()));
+        byte[] values = cipher.doFinal(message.getBytes());
+        return Base64.encodeToString(values, Base64.DEFAULT);
+    }
 
+    // Decrypts message content using Blowfish algo and chatID as shared key
+    public static String decrypt(String message, String chatID) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        byte[] values = Base64.decode(message, Base64.DEFAULT);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(chatID.getBytes(), "Blowfish");
+        Cipher cipher = Cipher.getInstance("Blowfish/CBC/PKCS5PAdding");
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec("abcdefgh".getBytes()));
+        return new String(cipher.doFinal(values));
+    }
 }

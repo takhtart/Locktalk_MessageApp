@@ -85,22 +85,4 @@ public class FirebaseFunctions {
         return new SimpleDateFormat("h:mm aa").format(timestamp.toDate());
 
     }
-
-    // Encrypts message content using Blowfish algo and chatID as shared key
-    public static String encrypt(String message, String chatID) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(chatID.getBytes(), "Blowfish");
-        Cipher cipher = Cipher.getInstance("Blowfish/CBC/PKCS5Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec("abcdefgh".getBytes()));
-        byte[] values = cipher.doFinal(message.getBytes());
-        return Base64.encodeToString(values, Base64.DEFAULT);
-     }
-
-    // Decrypts message content using Blowfish algo and chatID as shared key
-     public static String decrypt(String message, String chatID) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        byte[] values = Base64.decode(message, Base64.DEFAULT);
-        SecretKeySpec secretKeySpec = new SecretKeySpec(chatID.getBytes(), "Blowfish");
-        Cipher cipher = Cipher.getInstance("Blowfish/CBC/PKCS5PAdding");
-        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec("abcdefgh".getBytes()));
-        return new String(cipher.doFinal(values));
-     }
 }
