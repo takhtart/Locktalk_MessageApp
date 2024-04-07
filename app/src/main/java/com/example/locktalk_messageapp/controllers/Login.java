@@ -16,6 +16,7 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
+
 // Login Page
 
 public class Login extends AppCompatActivity {
@@ -49,10 +51,13 @@ public class Login extends AppCompatActivity {
     FusedLocationProviderClient mFusedLocationClient;
     int PERMISSION_ID = 44;
     Double[] userLocation = new Double[2];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
 
         // Relate Variables to layout file
         email = findViewById(R.id.email);
@@ -77,7 +82,7 @@ public class Login extends AppCompatActivity {
                         String UID = user.getUid();
                         FirebaseFunctions.allEmp().document(UID).get().addOnCompleteListener(task2 -> {
                             //Geo-fence check
-                            if(task2.isSuccessful()){
+                            if (task2.isSuccessful()) {
                                 DirHandler model = task2.getResult().toObject(DirHandler.class);
                                 FirebaseFunctions.getLocation(model.getOrg()).get().addOnCompleteListener(task3 -> {
                                     OrganizationHandler org = task3.getResult().toObject(OrganizationHandler.class);
@@ -86,12 +91,11 @@ public class Login extends AppCompatActivity {
                                     orgLocation[1] = org.getLongitude();
                                     getLastLocation();
                                     boolean inBounds = GeneralFunctions.checkLocationBounds(orgLocation, userLocation);
-                                    if(inBounds){
+                                    if (inBounds) {
                                         Toast.makeText(Login.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(Login.this, Home.class);
                                         startActivity(intent);
-                                    }
-                                    else {
+                                    } else {
                                         Toast.makeText(Login.this, "User Out of Bounds for Org: " + org.getName(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -101,10 +105,10 @@ public class Login extends AppCompatActivity {
                     } else {
                         Toast.makeText(Login.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
                     }
-                });
+        });
+
             }
         }));
-
 
         // Redirects to SignUpStep1 page if clicked
         signup.setOnClickListener((v -> {
@@ -203,8 +207,7 @@ public class Login extends AppCompatActivity {
 
     // If everything is alright then
     @Override
-    public void
-    onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == PERMISSION_ID) {
@@ -221,4 +224,4 @@ public class Login extends AppCompatActivity {
             getLastLocation();
         }
     }
-}
+        }

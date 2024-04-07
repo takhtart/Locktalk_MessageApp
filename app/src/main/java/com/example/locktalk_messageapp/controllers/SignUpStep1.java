@@ -1,15 +1,23 @@
 package com.example.locktalk_messageapp.controllers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.locktalk_messageapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUpStep1 extends AppCompatActivity {
@@ -23,10 +31,16 @@ public class SignUpStep1 extends AppCompatActivity {
 
     FirebaseFirestore db;
 
+    FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_step1);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
+
+        mAuth = FirebaseAuth.getInstance();
 
         email = findViewById(R.id.email);
 
@@ -49,8 +63,9 @@ public class SignUpStep1 extends AppCompatActivity {
                 email.setError("Invalid Email");
                 return;
             }
-            Intent intent = new Intent(SignUpStep1.this, SignUpStep2.class);
-            startActivity(intent);
+            else {
+                PasswordReset(email_string);
+            }
 
         }));
 
@@ -63,6 +78,22 @@ public class SignUpStep1 extends AppCompatActivity {
 
         }));
 
-
+    }
+    void PasswordReset(String email_string){
+        mAuth.sendPasswordResetEmail(email_string)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(SignUpStep1.this, "Reset Password Link has been sent to a registered email", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpStep1.this, SignUpStep2.class);
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SignUpStep1.this, "Error :- " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
