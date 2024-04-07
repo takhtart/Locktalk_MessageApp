@@ -115,27 +115,6 @@ public class Login extends AppCompatActivity {
         }));
     }
 
-    private boolean checkLocationBounds(Double[] orgLocation, Double[] userLocation) {
-        double earthRadius = 3958.75;
-
-        double latDiff = Math.toRadians(userLocation[0] - orgLocation[0]);
-        double lngDiff = Math.toRadians(userLocation[1] - orgLocation[1]);
-        double a = Math.sin(latDiff / 2) * Math.sin(latDiff / 2) +
-                Math.cos(Math.toRadians(orgLocation[0])) * Math.cos(Math.toRadians(userLocation[0])) *
-                        Math.sin(lngDiff / 2) * Math.sin(lngDiff / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = earthRadius * c;
-
-        int meterConversion = 1609;
-        double calculatedDistance = new Double(distance * meterConversion).floatValue();
-
-        //User must be within 10km of company locations
-        return Math.abs(calculatedDistance) < 1;
-    }
-
-
-
-
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
         // check if permissions are given
