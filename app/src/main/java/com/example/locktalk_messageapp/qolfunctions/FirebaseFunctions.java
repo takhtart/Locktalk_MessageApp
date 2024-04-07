@@ -76,4 +76,6 @@ public class FirebaseFunctions {
     public static DocumentReference getLocation(String orgID){
         return FirebaseFirestore.getInstance().collection("locations").document(orgID);
     }
+
+
 }

@@ -1,12 +1,13 @@
 package com.example.locktalk_messageapp.models;
 
 public class OrganizationHandler {
-    private String name, latitude, longitude;
+    private String name;
+    double latitude, longitude;
 
     public OrganizationHandler() {
     }
 
-    public OrganizationHandler(String name, String latitude, String longitude) {
+    public OrganizationHandler(String name, Double latitude, Double longitude) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -20,19 +21,19 @@ public class OrganizationHandler {
         this.name = name;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 }
