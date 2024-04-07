@@ -55,6 +55,8 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestPermissions();
         setContentView(R.layout.activity_login);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
@@ -74,6 +76,9 @@ public class Login extends AppCompatActivity {
                 email.setError("Invalid Email");
             } else if (TextUtils.isEmpty(password_string)) {
                 password.setError("Please Enter Your Password");
+            } else if(!checkPermissions()) {
+                requestPermissions();
+                Toast.makeText(Login.this, "Enable Location Permissions", Toast.LENGTH_SHORT).show();
             } else {
                 // Firebase Auth Login Check
                 mAuth.signInWithEmailAndPassword(email_string, password_string).addOnCompleteListener(task -> {
@@ -90,6 +95,8 @@ public class Login extends AppCompatActivity {
                                     orgLocation[0] = org.getLatitude();
                                     orgLocation[1] = org.getLongitude();
                                     getLastLocation();
+
+
                                     boolean inBounds = GeneralFunctions.checkLocationBounds(orgLocation, userLocation);
                                     if (inBounds) {
                                         Toast.makeText(Login.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();

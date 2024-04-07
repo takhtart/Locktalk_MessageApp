@@ -47,17 +47,24 @@ public class Splash extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
+        requestPermissions();
         // Check if user is signed in
         FirebaseUser user = mAuth.getCurrentUser();
         //Location check
         if(user != null) {
             String UID = user.getUid();
+            if(!checkPermissions()) {
+                requestPermissions();
+                Toast.makeText(Splash.this, "Enable Location Permissions", Toast.LENGTH_SHORT).show();
+                finish();
+                System.exit(0);
+            }
             FirebaseFunctions.allEmp().document(UID).get().addOnCompleteListener(task2 -> {
                 if(task2.isSuccessful()){
                     DirHandler model = task2.getResult().toObject(DirHandler.class);
@@ -172,6 +179,7 @@ public class Splash extends AppCompatActivity {
 
     // method to request for permissions
     private void requestPermissions() {
+
         ActivityCompat.requestPermissions(this, new String[]{
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
