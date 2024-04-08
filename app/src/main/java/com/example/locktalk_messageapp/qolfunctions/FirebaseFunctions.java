@@ -81,7 +81,13 @@ public class FirebaseFunctions {
     // Takes firebase timestamp and converts it to 12hr format time (used for recent messages)
     public static String TimestampToTime(Timestamp timestamp){
 
-        return new SimpleDateFormat("h:mm aa").format(timestamp.toDate());
+        return new SimpleDateFormat("h:mm aaa").format(timestamp.toDate());
+
+    }
+
+    public static String TimestampToDate(Timestamp timestamp){
+
+        return new SimpleDateFormat("EEE MMM d, yyyy").format(timestamp.toDate());
 
     }
 

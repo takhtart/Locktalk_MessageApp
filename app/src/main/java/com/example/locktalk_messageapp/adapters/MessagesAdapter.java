@@ -20,6 +20,7 @@ import androidx.work.WorkManager;
 import com.example.locktalk_messageapp.controllers.Chat;
 import com.example.locktalk_messageapp.controllers.Login;
 import com.example.locktalk_messageapp.models.ChatRoomHandler;
+import com.example.locktalk_messageapp.qolfunctions.EncryptionManager;
 import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
 import com.example.locktalk_messageapp.qolfunctions.GeneralFunctions;
 import com.example.locktalk_messageapp.R;
@@ -54,6 +55,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<ChatRoomHandler,Me
 
                DirHandler emp2 = task.getResult().toObject(DirHandler.class);
                holder.name.setText(emp2.getFirst_Name()+" "+emp2.getLast_Name());
+
 
                holder.messsage.setText(model.getLastmessage());
 

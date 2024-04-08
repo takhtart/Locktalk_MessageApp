@@ -72,12 +72,7 @@ public class ChatRoomHandler {
     }
 
     public String getLastmessage() {
-        String ret = chatID;
-        try {
-            ret = EncryptionManager.decrypt(lastmessage, chatID);
-        }
-        catch (Exception e) {}
-        return ret;
+        return lastmessage;
     }
 
     public void setLastmessage(String lastmessage) { this.lastmessage = lastmessage; }
