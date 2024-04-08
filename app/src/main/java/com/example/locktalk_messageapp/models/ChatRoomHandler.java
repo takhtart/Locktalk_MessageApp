@@ -2,6 +2,7 @@ package com.example.locktalk_messageapp.models;
 
 import android.util.Base64;
 
+import com.example.locktalk_messageapp.qolfunctions.EncryptionManager;
 import com.google.firebase.Timestamp;
 
 import java.security.InvalidAlgorithmParameterException;
@@ -71,36 +72,20 @@ public class ChatRoomHandler {
     }
 
     public String getLastmessage() {
-        String ret = "";
+        String ret = chatID;
         try {
-            ret = decrypt(lastmessage);
+            ret = EncryptionManager.decrypt(lastmessage, chatID);
         }
         catch (Exception e) {}
         return ret;
     }
 
-    public void setLastmessage(String lastmessage) {
-        try {
-            this.lastmessage = encrypt(lastmessage);
-        }
-        catch (Exception e) {}
-    }
+    public void setLastmessage(String lastmessage) { this.lastmessage = lastmessage; }
 
-    // Encrypts message content using Blowfish algo and chatID as shared key
-    public String encrypt(String message) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(chatID.getBytes(), "Blowfish");
-        Cipher cipher = Cipher.getInstance("Blowfish/CBC/PKCS5Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec("abcdefgh".getBytes()));
-        byte[] values = cipher.doFinal(message.getBytes());
-        return Base64.encodeToString(values, Base64.DEFAULT);
-    }
-
-    // Decrypts message content using Blowfish algo and chatID as shared key
-    public String decrypt(String message) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        byte[] values = Base64.decode(message, Base64.DEFAULT);
-        SecretKeySpec secretKeySpec = new SecretKeySpec(chatID.getBytes(), "Blowfish");
-        Cipher cipher = Cipher.getInstance("Blowfish/CBC/PKCS5PAdding");
-        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec("abcdefgh".getBytes()));
-        return new String(cipher.doFinal(values));
-    }
+//    public void setLastmessage(String lastmessage) {
+//        try {
+//            this.lastmessage = encrypt(lastmessage);
+//        }
+//        catch (Exception e) {}
+//    }
 }
