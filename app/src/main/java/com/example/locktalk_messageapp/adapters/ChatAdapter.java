@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.locktalk_messageapp.qolfunctions.EncryptionManager;
 import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
 import com.example.locktalk_messageapp.models.MessageHandler;
 import com.example.locktalk_messageapp.R;
@@ -34,17 +35,32 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<MessageHandler,ChatAda
 
     }
 
+    String test = "testing";
+
     @Override
     protected void onBindViewHolder(@NonNull ShowMessages holder, int position, @NonNull MessageHandler model) {
         if(model.getOriginID().equals(FirebaseFunctions.currentUID())){
             holder.left_bubble.setVisibility(View.GONE);
             holder.right_bubble.setVisibility(View.VISIBLE);
-            holder.right_bubble_text.setText(model.getMessage());
+            try {
+                holder.right_bubble_text.setText(EncryptionManager.decrypt(model.getMessage(), model.getChatID()));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         else{
             holder.left_bubble.setVisibility(View.VISIBLE);
             holder.right_bubble.setVisibility(View.GONE);
-            holder.left_bubble_text.setText(model.getMessage());
+            try {
+                holder.left_bubble_text.setText(model.getMessage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                holder.left_bubble_text.setText(EncryptionManager.decrypt(model.getMessage(), model.getChatID()));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

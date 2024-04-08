@@ -22,6 +22,7 @@ import com.example.locktalk_messageapp.models.ChatRoomHandler;
 import com.example.locktalk_messageapp.models.MessageHandler;
 import com.example.locktalk_messageapp.models.DirHandler;
 import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
+import com.example.locktalk_messageapp.qolfunctions.EncryptionManager;
 import com.example.locktalk_messageapp.qolfunctions.GeneralFunctions;
 import com.example.locktalk_messageapp.qolfunctions.KdcCodeWorker;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -162,23 +163,27 @@ public class Chat extends AppCompatActivity {
     //Sends Message And Triggers Notification
     void sendMessage(String messageinput){
 
-        chatroom.setMessagetimestamp(Timestamp.now());
-        chatroom.setLastmessageId(FirebaseFunctions.currentUID());
-        chatroom.setLastmessage(messageinput);
-        FirebaseFunctions.getChatRoom(chatRoomID).set(chatroom);
+        try {
+            String encryptedmessage = EncryptionManager.encrypt(messageinput, chatRoomID);
 
-        MessageHandler messageHandler = new MessageHandler(messageinput, FirebaseFunctions.currentUID(),Timestamp.now());
+            chatroom.setMessagetimestamp(Timestamp.now());
+            chatroom.setLastmessageId(FirebaseFunctions.currentUID());
+            chatroom.setLastmessage(encryptedmessage);
+            FirebaseFunctions.getChatRoom(chatRoomID).set(chatroom);
 
-        FirebaseFunctions.getMessageRef(chatRoomID).add(messageHandler).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                if(task.isSuccessful()){
-                    message.setText("");
-                    sendNotification(messageinput);
+            MessageHandler messageHandler = new MessageHandler(encryptedmessage, FirebaseFunctions.currentUID(), chatRoomID, Timestamp.now());
+
+            FirebaseFunctions.getMessageRef(chatRoomID).add(messageHandler).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentReference> task) {
+                    if(task.isSuccessful()){
+                        message.setText("");
+                        sendNotification(messageinput);
+                    }
+
                 }
-
-            }
-        });
+            });
+        } catch (Exception e) {}
     }
 
     //Creates and sends JSON Object Containing Details Of The Notification
