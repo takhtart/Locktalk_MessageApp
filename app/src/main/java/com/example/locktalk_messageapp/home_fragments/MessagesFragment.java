@@ -1,27 +1,23 @@
 package com.example.locktalk_messageapp.home_fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.fragment.app.ListFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.locktalk_messageapp.R;
 import com.example.locktalk_messageapp.adapters.MessagesAdapter;
 import com.example.locktalk_messageapp.models.ChatRoomHandler;
+import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.Query;
 
 // Messages Page Fragment of the Main Home Page (Bottom Nav Bar)

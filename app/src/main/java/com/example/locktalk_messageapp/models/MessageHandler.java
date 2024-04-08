@@ -1,17 +1,6 @@
 package com.example.locktalk_messageapp.models;
 
-import android.util.Log;
-
-import com.example.locktalk_messageapp.qolfunctions.EncryptionManager;
 import com.google.firebase.Timestamp;
-
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 
 // Messages Model, Containing a Contstructor, Getters/Setters

@@ -1,19 +1,16 @@
 package com.example.locktalk_messageapp.qolfunctions;
 
-import androidx.annotation.NonNull;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
+
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.CountDownLatch;
 
 public class KdcCodeWorker extends Worker {
 

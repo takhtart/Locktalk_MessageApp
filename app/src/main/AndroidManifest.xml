@@ -33,13 +33,14 @@
         <activity
             android:name=".controllers.Login"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:noHistory="true"/>
         <activity
             android:name=".controllers.Home"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".controllers.SignUpStep3"
+            android:name=".deprecated.SignUpStep3"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity

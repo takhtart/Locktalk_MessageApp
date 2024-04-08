@@ -1,15 +1,14 @@
 package com.example.locktalk_messageapp.controllers;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.text.Editable;
-
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.locktalk_messageapp.R;
 import com.example.locktalk_messageapp.adapters.DirAdapter;

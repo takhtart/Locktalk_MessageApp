@@ -1,8 +1,8 @@
-package com.example.locktalk_messageapp.controllers;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.locktalk_messageapp.deprecated;
 
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.locktalk_messageapp.R;
 

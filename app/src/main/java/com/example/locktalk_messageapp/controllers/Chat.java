@@ -1,5 +1,13 @@
 package com.example.locktalk_messageapp.controllers;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,22 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
 import com.example.locktalk_messageapp.R;
 import com.example.locktalk_messageapp.adapters.ChatAdapter;
 import com.example.locktalk_messageapp.models.ChatRoomHandler;
-import com.example.locktalk_messageapp.models.MessageHandler;
 import com.example.locktalk_messageapp.models.DirHandler;
-import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
+import com.example.locktalk_messageapp.models.MessageHandler;
 import com.example.locktalk_messageapp.qolfunctions.EncryptionManager;
+import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
 import com.example.locktalk_messageapp.qolfunctions.GeneralFunctions;
 import com.example.locktalk_messageapp.qolfunctions.KdcCodeWorker;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -35,18 +34,8 @@ import com.google.firebase.firestore.Query;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -94,7 +83,11 @@ public class Chat extends AppCompatActivity {
         emp2name = findViewById(R.id.emp2NameChat);
         backbtn = findViewById(R.id.backbtnchat);
         chatRoomID = FirebaseFunctions.getChatRoomID(FirebaseFunctions.currentUID(),emp2.getUserID());
+
+
         verifyKdcKeyAndSetUpChat();
+
+
         // Back on Press
         backbtn.setOnClickListener(v -> {
                getOnBackPressedDispatcher().onBackPressed();

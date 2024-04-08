@@ -1,7 +1,5 @@
 package com.example.locktalk_messageapp.adapters;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -16,15 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-
+import com.example.locktalk_messageapp.R;
 import com.example.locktalk_messageapp.controllers.Chat;
 import com.example.locktalk_messageapp.controllers.Login;
 import com.example.locktalk_messageapp.models.ChatRoomHandler;
+import com.example.locktalk_messageapp.models.DirHandler;
 import com.example.locktalk_messageapp.qolfunctions.EncryptionManager;
 import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
 import com.example.locktalk_messageapp.qolfunctions.GeneralFunctions;
-import com.example.locktalk_messageapp.R;
-import com.example.locktalk_messageapp.models.DirHandler;
 import com.example.locktalk_messageapp.qolfunctions.KdcCodeWorker;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -59,15 +56,23 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<ChatRoomHandler,Me
 
                holder.messsage.setText(model.getLastmessage());
 
-               Log.i("OG Time",model.getMessagetimestamp().toString());
+
                holder.time.setText(FirebaseFunctions.TimestampToTime(model.getMessagetimestamp()));
-               Log.i("Mod Time",FirebaseFunctions.TimestampToTime(model.getMessagetimestamp()));
 
                if(model.getLastmessageId().equals(FirebaseFunctions.currentUID())){
-                   holder.messsage.setText("(Me) " + model.getLastmessage());
+
+                   try {
+                       holder.messsage.setText("(Me) " + EncryptionManager.decrypt(model.getLastmessage(), model.getChatID()));
+                   } catch (Exception e) {
+
+                   }
                }
                else{
-                   holder.messsage.setText(model.getLastmessage());
+                   try {
+                       holder.messsage.setText(EncryptionManager.decrypt(model.getLastmessage(), model.getChatID()));
+                   } catch (Exception e) {
+
+                   }
                }
 
 //               holder.itemView.setOnClickListener(v -> {

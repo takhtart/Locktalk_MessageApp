@@ -1,20 +1,21 @@
 package com.example.locktalk_messageapp.controllers;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
 import android.widget.Toast;
-import android.content.pm.PackageManager;
-import android.Manifest;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.example.locktalk_messageapp.R;
 import com.example.locktalk_messageapp.models.DirHandler;
 import com.example.locktalk_messageapp.models.OrganizationHandler;
@@ -27,7 +28,8 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Splash extends AppCompatActivity {
 
@@ -77,14 +79,20 @@ public class Splash extends AppCompatActivity {
                         boolean inBounds = GeneralFunctions.checkLocationBounds(orgLocation, userLocation);
                         if(inBounds){
                             if(getIntent().getExtras()!= null){
-                                Intent homeintent = new Intent(this, Home.class);
-                                homeintent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                startActivity(homeintent);
-                                Intent intent = new Intent(this, Chat.class);
-                                GeneralFunctions.passuserinfo(intent,model);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
+                                String UID2 = getIntent().getExtras().getString("EmpID");
+                                FirebaseFunctions.allEmp().document(UID2).get().addOnCompleteListener(task -> {
+                                    if(task.isSuccessful()){
+                                        DirHandler model2 = task.getResult().toObject(DirHandler.class);
+                                        Intent homeintent = new Intent(this, Home.class);
+                                        homeintent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                        startActivity(homeintent);
+                                        Intent intent = new Intent(this, Chat.class);
+                                        GeneralFunctions.passuserinfo(intent,model2);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
                             }
                             else {
                                 startActivity(new Intent(Splash.this, Home.class));

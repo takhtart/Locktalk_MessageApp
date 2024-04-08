@@ -28,6 +28,7 @@ public class GeneralFunctions {
         intent.putExtra("Email",model.getEmail());
         intent.putExtra("userID", model.getUserID());
         intent.putExtra("FCMToken", model.getFCMToken());
+        intent.putExtra("kdcKey", model.getKdcKey());
         intent.putExtra("Org", model.getOrg());
     }
     public static boolean checkLocationBounds(Double[] orgLocation, Double[] userLocation) {

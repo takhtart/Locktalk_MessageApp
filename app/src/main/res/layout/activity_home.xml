@@ -13,17 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Grey"
-        android:padding="10dp">
+        android:padding="12dp">
 
-        <TextView
+        <ImageView
+            android:id="@+id/lock_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+
             android:layout_centerInParent="true"
-            android:text="LockTalk"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            />
+            android:src="@drawable/lock_logo_title" />
+
+
 
         <ImageButton
             android:id="@+id/search_button"
@@ -46,16 +46,16 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/logoutbtn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:backgroundTint="@color/Grey"
 
-            android:text="Logout"
-            />
+            android:backgroundTint="@color/Grey"
+            android:text="Logout" />
 
     </RelativeLayout>
 

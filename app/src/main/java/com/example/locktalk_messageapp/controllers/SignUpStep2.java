@@ -1,11 +1,11 @@
 package com.example.locktalk_messageapp.controllers;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.locktalk_messageapp.R;
 

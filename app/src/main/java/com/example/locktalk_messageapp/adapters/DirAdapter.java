@@ -10,12 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+import com.example.locktalk_messageapp.R;
 import com.example.locktalk_messageapp.controllers.Chat;
+import com.example.locktalk_messageapp.models.DirHandler;
 import com.example.locktalk_messageapp.qolfunctions.FirebaseFunctions;
 import com.example.locktalk_messageapp.qolfunctions.GeneralFunctions;
-import com.example.locktalk_messageapp.R;
-import com.example.locktalk_messageapp.models.DirHandler;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
